@@ -36,7 +36,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - [x] Specific fields sortable(album.id,albums.title, photos.title)
     - [x] Searchable on albums.title and photos.title
     - [ ] Scrollable (show 25 rows by default)
-    - [ ] Custom filters - album.title
+    - [x] Custom filters - album.title
     - [x] Thumbnail should appear as an image Data url:
 
       - https://jsonplaceholder.typicode.com/albums
