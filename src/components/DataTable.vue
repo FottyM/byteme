@@ -106,8 +106,8 @@ export default {
     handleScroll (e) {
       const table = document.querySelector('.table')
       const tableHeader = document.querySelector('.table-header')
-      console.log({table, tableHeader})
-      console.log(window.pageYOffset)
+      // console.log({table, tableHeader})
+      // console.log(window.pageYOffset)
     }
   }
 }
