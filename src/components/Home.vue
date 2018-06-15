@@ -1,8 +1,19 @@
 <template>
   <div class="container">
-    <div class="searc-form">
+    <h1 class="title">Albums table</h1>
+    <div class="search-form">
       <form>
-      <input type="text" v-model="searchTearm" placeholder="Search by...">
+        <label for="search-term">
+          Looking for...
+          <input type="text" v-model="searchTearm" placeholder="Search by..." id='search-term"'>
+        </label>
+        <label for="check">
+          Albums...
+          <select v-model="albumTitleOnly">
+            <option value="all">All</option>
+            <option value="albums">Albums</option>
+          </select>
+        </label>
     </form>
     </div>
     <div class="data-table">
@@ -10,6 +21,7 @@
      :data="combinedData"
      :columns="columns"
      :filterKey="searchTearm"
+     :customFilterKey="albumTitleOnly"
     />
     </div>
   </div>
@@ -23,11 +35,12 @@ export default {
   data () {
     return {
       searchTearm: '',
+      albumTitleOnly: 'all',
       columns: ['albumId', 'albumTitle', 'photoTitle', 'photoThumbnail'],
       combinedData: []
     }
   },
-  async mounted () {
+  mounted () {
     this.fetchData()
   },
   methods: {
@@ -54,21 +67,35 @@ export default {
   margin-left: 7%;
   margin-right: 7%;
 }
-.searc-form,
+
+.search-form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+form input + select {
+  margin: 10px auto;
+}
+
+.search-form,
 .data-table {
   width: 100%;
   padding-top: 10px;
   padding-bottom: 15px;
 }
+
 .searc-form > *,
 .data-table > * {
   margin: auto 15px;
 }
-input[type='text'] {
+.title {
+  text-align: center;
+}
+input[type='text'],
+select {
   /* width: 100%; */
   border-radius: 5px;
   padding: 3px;
-  height: 30px;
-  font-size: 20px;
 }
 </style>

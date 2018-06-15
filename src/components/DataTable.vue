@@ -31,9 +31,22 @@
 export default {
   name: 'data-table',
   props: {
-    data: Array,
-    columns: Array,
-    filterKey: String
+    data: {
+      type: Array,
+      required: true
+    },
+    columns: {
+      type: Array,
+      required: true
+    },
+    filterKey: {
+      type: String,
+      required: true
+    },
+    customFilterKey: {
+      type: String,
+      required: true
+    }
   },
   data () {
     let sortOrders = {}
@@ -47,14 +60,16 @@ export default {
   },
   computed: {
     filteredData () {
-      let sortKey = this.sortKey
-      let filterKey = this.filterKey && this.filterKey.toLowerCase()
-      let order = this.sortOrders[sortKey] || 1
+      const sortKey = this.sortKey
+      const filterKey = this.filterKey && this.filterKey.toLowerCase()
+      const customFilterKey = this.customFilterKey && this.customFilterKey.toLowerCase()
+      const order = this.sortOrders[sortKey] || 1
       let data = this.data
-      console.log({filterKey, sortKey})
       if (filterKey) {
         data = data.filter((row) => {
           return Object.keys(row).some((key) => {
+            if (key === 'photoThumbnail' || key === 'albumId') return
+            if (key !== 'albumTitle' && customFilterKey !== 'all') return
             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
           })
         })
