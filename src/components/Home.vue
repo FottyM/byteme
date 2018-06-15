@@ -4,11 +4,11 @@
     <div class="search-form">
       <form>
         <label for="search-term">
-          Looking for...
+          Search
           <input type="text" v-model="searchTearm" placeholder="Search by..." id='search-term"'>
         </label>
         <label for="check">
-          Albums...
+          By Album
           <select v-model="albumTitleOnly">
             <option value="all">All</option>
             <option value="albums">Albums</option>

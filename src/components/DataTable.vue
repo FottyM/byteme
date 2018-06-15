@@ -1,6 +1,7 @@
 <template>
-<table>
-   <thead>
+<div class="form-container" @scroll="handleScroll">
+  <table class="table">
+    <thead class="table-header">
       <tr>
         <th v-for="(key,i) in columns" :key='i'
           @click="sortBy(key)"
@@ -14,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(entry,i) in filteredData" :key="i">
+      <tr v-for="(entry,i) in filteredData" :key="i" :ref="`td${(i+1)}`">
         <td v-for="(key,j) in columns" :key="j">
           <template v-if="key !== 'photoThumbnail'">
             {{entry[key]}}
@@ -25,7 +26,8 @@
         </td>
       </tr>
     </tbody>
-</table>
+  </table>
+</div>
 </template>
 <script>
 export default {
@@ -55,8 +57,13 @@ export default {
     })
     return {
       sortKey: '',
-      sortOrders: sortOrders
+      sortOrders: sortOrders,
+      twentyFith: 0
     }
+  },
+  mounted () {
+    const ref25 = this.$refs['td25']
+    this.twentyFith = ref25[0].offsetTop
   },
   computed: {
     filteredData () {
@@ -95,47 +102,36 @@ export default {
       if (key === 'photoThumbnail') return
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
+    },
+    handleScroll (e) {
+      const table = document.querySelector('.table')
+      const tableHeader = document.querySelector('.table-header')
+      console.log({table, tableHeader})
+      console.log(window.pageYOffset)
     }
   }
 }
 </script>
-<style scoped>
+<style scoped lang='scss'>
+//colors
+$teal: teal;
+$color_blue_chalk_approx: lavender;
+$color_gallery_approx: #f0f0f0;
+$white: #fff;
+
 table {
-  /* border: 1px solid black; */
-  /* border-radius: 300px; */
   width: 100%;
+  overflow: scroll;
 }
-
 thead {
-  background: teal;
+  background: $teal;
+  th {
+    padding: 10px;
+    color: $color_blue_chalk_approx;
+    font-size: 18px;
+    opacity: 0.8;
+  }
 }
-thead th {
-  padding: 10px;
-  color: lavender;
-  font-size: 18px;
-  opacity: 0.8;
-}
-
-tbody td {
-  padding: 0 10px;
-  background: #f0f0f0;
-}
-
-td.thumb {
-  width: 5px;
-  height: 5px;
-  text-align: center;
-}
-
-th.active {
-  color: #fff;
-  opacity: 1;
-}
-
-th.active .arrow {
-  opacity: 1;
-}
-
 .arrow {
   display: inline-block;
   vertical-align: middle;
@@ -143,17 +139,35 @@ th.active .arrow {
   height: 0;
   margin-left: 5px;
   opacity: 0.66;
+  &.asc {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid $white;
+  }
+  &.dsc {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid $white;
+  }
 }
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
+tbody td {
+  padding: 0 10px;
+  background: $color_gallery_approx;
 }
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
+td.thumb {
+  width: 5px;
+  height: 5px;
+  text-align: center;
+}
+th.active {
+  color: $white;
+  opacity: 1;
+  .arrow {
+    opacity: 1;
+  }
+}
+.form-container {
+  height: 3997px;
+  overflow: auto;
 }
 </style>

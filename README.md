@@ -35,7 +35,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - [ ] Fixed header row (album.id, album.title, photos.title, photos.thumbnail)
     - [x] Specific fields sortable(album.id,albums.title, photos.title)
     - [x] Searchable on albums.title and photos.title
-    - [ ] Scrollable (show 25 rows by default)
+    - [x] Scrollable (show 25 rows by default)
     - [x] Custom filters - album.title
     - [x] Thumbnail should appear as an image Data url:
 
